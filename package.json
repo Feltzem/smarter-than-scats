@@ -1,0 +1,50 @@
+{
+  "name": "smarter-than-scats",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "generate:standalone-data": "node scripts/generate-standalone-data.mjs",
+    "build:site36": "node scripts/run_site36_builder.mjs",
+    "test:score-code": "node --experimental-strip-types scripts/test-score-code.mjs",
+    "test:cycle-pies": "node --experimental-strip-types scripts/test-cycle-pies.mjs",
+    "test:site36-data": "node scripts/test-site36-data.mjs",
+    "test:detector-calibration": "node --no-warnings --experimental-strip-types --experimental-loader=./scripts/ts-extension-loader.mjs scripts/test-detector-calibration.mjs",
+    "test:vehicle-catalog": "node --no-warnings --experimental-strip-types --experimental-loader=./scripts/ts-extension-loader.mjs scripts/test-vehicle-catalog.mjs",
+    "test:site36-builder": "node scripts/run_site36_builder.mjs scripts/test_site36_builder.py",
+    "test:signal-rules": "node --no-warnings --experimental-strip-types --experimental-loader=./scripts/ts-extension-loader.mjs scripts/test-signal-movement-rules.mjs",
+    "test:scats-replay": "node --no-warnings --experimental-strip-types --experimental-loader=./scripts/ts-extension-loader.mjs scripts/test-scats-replay.mjs",
+    "build": "npm run generate:standalone-data && tsc -b && vite build --mode standalone",
+    "build:web": "npm run generate:standalone-data && tsc -b && vite build --mode web",
+    "distribute": "npm run build",
+    "release": "npm run build && node scripts/release-standalone.mjs",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
+    "chart.js": "^4.5.1",
+    "react": "^19.2.0",
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "^19.2.0",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.185.4",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.48.0",
+    "vite": "^7.3.1",
+    "vite-plugin-singlefile": "^2.3.3"
+  }
+}
