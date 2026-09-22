@@ -242,8 +242,8 @@ function drawCar(ctx: CanvasRenderingContext2D, car: CarState) {
 
   ctx.save();
   ctx.translate(
-    pos.x - Math.cos(heading) * frontOffset,
-    pos.y - Math.sin(heading) * frontOffset,
+    pos.x - Math.cos(pos.rotation) * frontOffset,
+    pos.y - Math.sin(pos.rotation) * frontOffset,
   );
   ctx.rotate(heading);
 
