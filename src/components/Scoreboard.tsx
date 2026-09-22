@@ -1,5 +1,13 @@
 import { useState } from "react";
 import type { SimulationResult, GameState, PeriodKey } from "../data/types";
+import {
+  addLeaderboardEntry,
+  createLeaderboardEntry,
+  leaderboardToCsv,
+  loadLeaderboard,
+  normalizeLeaderboardName,
+} from "../scoring/leaderboard";
+import type { LeaderboardEntry } from "../scoring/leaderboard";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -18,6 +26,7 @@ interface ScoreboardProps {
   gameState: GameState;
   playerResult: SimulationResult | null;
   playerScoreCode: string | null;
+  playerPhaseGreens: [number, number, number, number];
   aiResult: SimulationResult | null;
   liveScatsResult: SimulationResult | null;
   hasAi: boolean;
@@ -46,6 +55,7 @@ export function Scoreboard({
   gameState,
   playerResult,
   playerScoreCode,
+  playerPhaseGreens,
   aiResult,
   liveScatsResult,
   hasAi,
@@ -75,6 +85,14 @@ export function Scoreboard({
   const [scoreCodeCopyState, setScoreCodeCopyState] = useState<
     "idle" | "copied" | "error"
   >("idle");
+  const [leaderboardEntries, setLeaderboardEntries] = useState<
+    LeaderboardEntry[]
+  >(() => loadLeaderboard());
+  const [playerName, setPlayerName] = useState("");
+  const [submittedScoreCode, setSubmittedScoreCode] = useState<string | null>(
+    null,
+  );
+  const [leaderboardMessage, setLeaderboardMessage] = useState("");
 
   const copyPlayerScoreCode = async () => {
     if (!playerScoreCode) return;
@@ -82,6 +100,43 @@ export function Scoreboard({
     const copied = await copyTextToClipboard(playerScoreCode);
     setScoreCodeCopyState(copied ? "copied" : "error");
     window.setTimeout(() => setScoreCodeCopyState("idle"), 1800);
+  };
+
+  const savePlayerScore = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!playerResult || !playerScoreCode) return;
+
+    const name = normalizeLeaderboardName(playerName);
+    if (!name) {
+      setLeaderboardMessage("Enter a name to save this score.");
+      return;
+    }
+
+    const entry = createLeaderboardEntry({
+      name,
+      period,
+      phaseGreens: playerPhaseGreens,
+      result: playerResult,
+      scoreCode: playerScoreCode,
+    });
+    setLeaderboardEntries(addLeaderboardEntry(entry));
+    setSubmittedScoreCode(playerScoreCode);
+    setPlayerName("");
+    setLeaderboardMessage("Score saved on this device.");
+  };
+
+  const downloadLeaderboard = () => {
+    if (leaderboardEntries.length === 0) return;
+
+    const blob = new Blob([leaderboardToCsv(leaderboardEntries)], {
+      type: "text/csv;charset=utf-8",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `smarter-than-scats-leaderboard-${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   const livePhaseDelayChartOptions = {
@@ -410,6 +465,73 @@ export function Scoreboard({
           <div style={styles.scoreCodeValue}>{playerScoreCode}</div>
         </div>
       )}
+
+      <div style={styles.leaderboardBlock}>
+        <div style={styles.leaderboardHeader}>
+          <div>
+            <div style={styles.scoreCodeLabel}>Leaderboard</div>
+            <div style={styles.leaderboardHint}>
+              Lowest total delay ranks highest. Saved on this device.
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={downloadLeaderboard}
+            disabled={leaderboardEntries.length === 0}
+            style={styles.leaderboardButtonSecondary}
+          >
+            Download CSV
+          </button>
+        </div>
+
+        {hasPlayer && playerResult && playerScoreCode && (
+          submittedScoreCode === playerScoreCode ? (
+            <div style={styles.leaderboardMessage}>{leaderboardMessage}</div>
+          ) : (
+            <form onSubmit={savePlayerScore} style={styles.leaderboardForm}>
+              <label htmlFor="leaderboard-name" style={styles.leaderboardLabel}>
+                Enter your name
+              </label>
+              <div style={styles.leaderboardFormRow}>
+                <input
+                  id="leaderboard-name"
+                  value={playerName}
+                  onChange={(event) => setPlayerName(event.target.value)}
+                  placeholder="Your name"
+                  maxLength={24}
+                  autoComplete="nickname"
+                  style={styles.leaderboardInput}
+                />
+                <button type="submit" style={styles.leaderboardButton}>
+                  Save score
+                </button>
+              </div>
+              {leaderboardMessage && (
+                <div style={styles.leaderboardMessage}>
+                  {leaderboardMessage}
+                </div>
+              )}
+            </form>
+          )
+        )}
+
+        {leaderboardEntries.length === 0 ? (
+          <div style={styles.leaderboardEmpty}>No scores saved yet.</div>
+        ) : (
+          <div style={styles.leaderboardList}>
+            {leaderboardEntries.slice(0, 10).map((entry, index) => (
+              <div key={entry.id} style={styles.leaderboardRow}>
+                <span style={styles.leaderboardRank}>{index + 1}</span>
+                <span style={styles.leaderboardName}>{entry.name}</span>
+                <span style={styles.leaderboardPeriod}>{entry.period}</span>
+                <span style={styles.leaderboardScore}>
+                  {entry.totalDelay.toFixed(0)}s
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -808,6 +930,121 @@ const styles: Record<string, React.CSSProperties> = {
   copyScoreCodeButtonError: {
     background: "#dc2626",
     borderColor: "#dc2626",
+  },
+  leaderboardBlock: {
+    marginTop: 16,
+    background: "var(--bg-surface-2)",
+    borderRadius: 8,
+    padding: 10,
+    border: "1px solid var(--border-color)",
+  },
+  leaderboardHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    gap: 10,
+    marginBottom: 10,
+  },
+  leaderboardHint: {
+    marginTop: 2,
+    fontSize: 11,
+    color: "var(--text-muted)",
+    lineHeight: 1.35,
+  },
+  leaderboardForm: {
+    padding: "10px 0",
+    borderTop: "1px solid var(--border-color)",
+    borderBottom: "1px solid var(--border-color)",
+  },
+  leaderboardLabel: {
+    display: "block",
+    marginBottom: 5,
+    fontSize: 10,
+    color: "var(--text-faint)",
+    textTransform: "uppercase" as const,
+    letterSpacing: 1,
+    fontWeight: 700,
+  },
+  leaderboardFormRow: {
+    display: "flex",
+    gap: 6,
+  },
+  leaderboardInput: {
+    minWidth: 0,
+    flex: 1,
+    padding: "7px 8px",
+    border: "1px solid var(--border-color)",
+    borderRadius: 6,
+    background: "var(--bg-surface)",
+    color: "var(--text-primary)",
+    fontSize: 12,
+  },
+  leaderboardButton: {
+    flexShrink: 0,
+    padding: "7px 9px",
+    border: "1px solid #00a85a",
+    borderRadius: 6,
+    background: "#00a85a",
+    color: "#fff",
+    cursor: "pointer",
+    fontSize: 12,
+    fontWeight: 700,
+  },
+  leaderboardButtonSecondary: {
+    flexShrink: 0,
+    padding: "6px 8px",
+    border: "1px solid var(--border-color)",
+    borderRadius: 6,
+    background: "var(--bg-surface)",
+    color: "var(--text-primary)",
+    cursor: "pointer",
+    fontSize: 11,
+    fontWeight: 700,
+  },
+  leaderboardMessage: {
+    marginTop: 6,
+    color: "var(--text-muted)",
+    fontSize: 11,
+  },
+  leaderboardEmpty: {
+    padding: "12px 0 4px",
+    color: "var(--text-faint)",
+    fontSize: 12,
+  },
+  leaderboardList: {
+    display: "grid",
+    gap: 4,
+    marginTop: 10,
+  },
+  leaderboardRow: {
+    display: "grid",
+    gridTemplateColumns: "22px minmax(0, 1fr) 44px auto",
+    alignItems: "center",
+    gap: 6,
+    padding: "6px 0",
+    borderTop: "1px solid var(--border-color)",
+    fontSize: 12,
+  },
+  leaderboardRank: {
+    color: "var(--text-faint)",
+    fontFamily: "monospace",
+    textAlign: "right" as const,
+  },
+  leaderboardName: {
+    color: "var(--text-primary)",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap" as const,
+  },
+  leaderboardPeriod: {
+    color: "var(--text-muted)",
+    fontSize: 10,
+    fontWeight: 700,
+  },
+  leaderboardScore: {
+    color: "var(--text-primary)",
+    fontFamily: "monospace",
+    fontWeight: 700,
   },
   phaseChartBlock: {
     marginTop: 12,

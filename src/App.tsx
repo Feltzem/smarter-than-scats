@@ -255,6 +255,7 @@ function App() {
 
   // Game state
   const [gameState, setGameState] = useState<GameState>("SETUP");
+  const [runId, setRunId] = useState(0);
   const [period, setPeriod] = useState<PeriodKey>("AM");
   const [speedMultiplier, setSpeedMultiplier] = useState(5);
   const [viewMode, setViewMode] = useState<ViewMode>("2d");
@@ -471,6 +472,7 @@ function App() {
     prevPlayerPhaseDelayRef.current = ZERO_PHASE_DELAYS;
     prevAiPhaseDelayRef.current = ZERO_PHASE_DELAYS;
     prevLiveScatsPhaseDelayRef.current = ZERO_PHASE_DELAYS;
+    setRunId((previous) => previous + 1);
     setGameState("RUNNING");
   }, [periods, period, phaseConfig, activeModels]);
 
@@ -920,9 +922,11 @@ function App() {
         {/* Right sidebar: Scoreboard */}
         <div style={styles.sidebar}>
           <Scoreboard
+            key={runId}
             gameState={gameState}
             playerResult={playerResult}
             playerScoreCode={playerScoreCode}
+            playerPhaseGreens={phaseConfig.greens}
             aiResult={aiResult}
             liveScatsResult={liveScatsResult}
             hasAi={showAi}

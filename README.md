@@ -121,8 +121,22 @@ Score verification setup for Google Sheets is documented in `docs/score-verifica
 3. Choose active models (`You`, `AI`, `SCATS`).
 4. Start the run and compare live delay and throughput.
 5. Review final totals and verdict, then copy the verification code if adding a score to a spreadsheet.
+6. Enter a name after the run to save the result to the local leaderboard and download the saved results as CSV for review.
 
 Primary KPI: total delay (`vehicle-seconds`, also shown as `vehicle-hours`).
+
+### Leaderboard and review export
+
+The leaderboard is stored in the browser's local storage, so it persists on the
+same device and browser across visits. It is sorted by lowest total delay and
+keeps the top 100 saved runs; the visible table shows the top 10. The `Download
+CSV` button exports the saved runs with phase timings, phase delays, result
+metrics, timestamps, and verification codes.
+
+GitHub Pages serves static files and cannot write a shared CSV or database. This
+means each browser currently has its own leaderboard. A public cross-device
+leaderboard would need a write-capable backend or a hosted form/database; the
+CSV export is the review path for the current static deployment.
 
 ## Controllers
 

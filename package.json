@@ -8,6 +8,7 @@
     "generate:standalone-data": "node scripts/generate-standalone-data.mjs",
     "build:site36": "node scripts/run_site36_builder.mjs",
     "test:score-code": "node --experimental-strip-types scripts/test-score-code.mjs",
+    "test:leaderboard": "node --experimental-strip-types scripts/test-leaderboard.mjs",
     "test:cycle-pies": "node --experimental-strip-types scripts/test-cycle-pies.mjs",
     "test:site36-data": "node scripts/test-site36-data.mjs",
     "test:detector-calibration": "node --no-warnings --experimental-strip-types --experimental-loader=./scripts/ts-extension-loader.mjs scripts/test-detector-calibration.mjs",
