@@ -1,0 +1,77 @@
+Date : 2026-03-02 11:20:49
+Directory : c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats
+Total : 33 files,  10944 codes, 290 comments, 508 blanks, all 11742 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| CSV                |          2 |      3,877 |          0 |          2 |      3,879 |
+| JSON               |          6 |      3,405 |          4 |         10 |      3,419 |
+| TypeScript JSX     |          8 |      1,796 |         41 |        127 |      1,964 |
+| TypeScript         |         10 |      1,527 |        180 |        295 |      2,002 |
+| Python             |          1 |        214 |         55 |         50 |        319 |
+| Markdown           |          1 |         60 |          0 |         14 |         74 |
+| PostCSS            |          2 |         23 |          1 |          5 |         29 |
+| JavaScript         |          1 |         22 |          0 |          2 |         24 |
+| HTML               |          1 |         13 |          9 |          2 |         24 |
+| JSON with Comments |          1 |          7 |          0 |          1 |          8 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                                                       | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                                                          |         33 |     10,944 |        290 |        508 |     11,742 |
+| . (Files)                                                                                                                                                                  |          9 |      3,501 |         14 |         29 |      3,544 |
+| .claude                                                                                                                                                                    |          1 |         10 |          0 |          1 |         11 |
+| public                                                                                                                                                                     |          1 |          1 |          0 |          1 |          2 |
+| public\data                                                                                                                                                                |          1 |          1 |          0 |          1 |          2 |
+| scripts                                                                                                                                                                    |          1 |        214 |         55 |         50 |        319 |
+| src                                                                                                                                                                        |         21 |      7,218 |        221 |        427 |      7,866 |
+| src (Files)                                                                                                                                                                |          4 |        372 |         18 |         36 |        426 |
+| src\components                                                                                                                                                             |          6 |      1,447 |         24 |         96 |      1,567 |
+| src\data                                                                                                                                                                   |          5 |      4,363 |         28 |         94 |      4,485 |
+| src\rendering                                                                                                                                                              |          2 |        345 |         54 |         77 |        476 |
+| src\simulation                                                                                                                                                             |          4 |        691 |         97 |        124 |        912 |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                                                                                   | language           | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\.claude\settings.local.json         | JSON               |         10 |          0 |          1 |         11 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\README.md                           | Markdown           |         60 |          0 |         14 |         74 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\eslint.config.js                    | JavaScript         |         22 |          0 |          2 |         24 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\index.html                          | HTML               |         13 |          9 |          2 |         24 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\package-lock.json                   | JSON               |      3,316 |          0 |          1 |      3,317 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\package.json                        | JSON               |         32 |          0 |          1 |         33 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\public\data\manifest.json           | JSON               |          1 |          0 |          1 |          2 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\scripts\extract_scats.py            | Python             |        214 |         55 |         50 |        319 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\App.css                         | PostCSS            |          0 |          1 |          1 |          2 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\App.tsx                         | TypeScript JSX     |        340 |         17 |         29 |        386 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\components\ControlsPanel.tsx    | TypeScript JSX     |        357 |          8 |         18 |        383 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\components\HelpOverlay.tsx      | TypeScript JSX     |        177 |          0 |         11 |        188 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\components\PhaseTimeline.tsx    | TypeScript JSX     |        152 |          1 |          8 |        161 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\components\ScatsCyclePie.tsx    | TypeScript JSX     |        184 |          0 |         15 |        199 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\components\Scoreboard.tsx       | TypeScript JSX     |        449 |          4 |         22 |        475 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\components\SimulationCanvas.tsx | TypeScript JSX     |        128 |         11 |         22 |        161 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\data\loader.ts                  | TypeScript         |        347 |          2 |         66 |        415 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\data\phasing_site36.csv         | CSV                |      3,588 |          0 |          1 |      3,589 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\data\sampleData.ts              | TypeScript         |         69 |         11 |         11 |         91 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\data\scats_site36_5min.csv      | CSV                |        289 |          0 |          1 |        290 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\data\types.ts                   | TypeScript         |         70 |         15 |         15 |        100 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\index.css                       | PostCSS            |         23 |          0 |          4 |         27 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\main.tsx                        | TypeScript JSX     |          9 |          0 |          2 |         11 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\rendering\dynamic.ts            | TypeScript         |         93 |         19 |         27 |        139 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\rendering\road.ts               | TypeScript         |        252 |         35 |         50 |        337 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\simulation\carFollowing.ts      | TypeScript         |         38 |         33 |         13 |         84 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\simulation\engine.ts            | TypeScript         |        227 |         18 |         43 |        288 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\simulation\paths.ts             | TypeScript         |        244 |         27 |         37 |        308 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\src\simulation\signalController.ts  | TypeScript         |        182 |         19 |         31 |        232 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\tsconfig.app.json                   | JSON               |         24 |          2 |          3 |         29 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\tsconfig.json                       | JSON with Comments |          7 |          0 |          1 |          8 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\tsconfig.node.json                  | JSON               |         22 |          2 |          3 |         27 |
+| c:\Users\TownseD\OneDrive - Hamilton City Council\Data Analytics\Projects - Smart-Ops\026 Traffic Signal Simulation\smarter-than-scats\vite.config.ts                      | TypeScript         |          5 |          1 |          2 |          8 |
+| Total                                                                                                                                                                      |                    |     10,944 |        290 |        508 |     11,742 |
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

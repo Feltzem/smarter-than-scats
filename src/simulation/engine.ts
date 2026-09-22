@@ -182,6 +182,8 @@ export class SimulationEngine {
         if (!phaseOk) break;
 
         const run = runs[idx];
+          if (!this.canStartPedestrianRun(run.signalGroup)) break;
+
         for (const direction of run.pedestrianDirections) {
           this.pedestrians.push({
             id: this.nextPedestrianId,
@@ -786,6 +788,38 @@ export class SimulationEngine {
       (pedestrian) => pedestrian.signalGroup === conflictingGroup,
     );
     return conflictingPedestrians.length > 0;
+  }
+
+  private canStartPedestrianRun(signalGroup: PedestrianSignalGroup): boolean {
+    const approaches: Approach[] = ["N", "S", "E", "W"];
+    const turns: Array<"left" | "right"> = ["left", "right"];
+
+    for (const approach of approaches) {
+      for (const movement of turns) {
+        if (conflictingTurnGroup(approach, movement) !== signalGroup) {
+          continue;
+        }
+
+        for (const car of this.cars) {
+          if (car.approach !== approach || car.movement !== movement) {
+            continue;
+          }
+
+          const path = ALL_PATHS[car.pathIndex];
+          if (!path) continue;
+
+          const distancePastStopLine = car.distance - path.stopLineDistance;
+          if (
+            distancePastStopLine >= -2 &&
+            distancePastStopLine <= FILTER_TURN_INTERSECTION_BLOCK
+          ) {
+            return false;
+          }
+        }
+      }
+    }
+
+    return true;
   }
 
   private enforceLaneSpacing(
